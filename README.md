@@ -1,12 +1,12 @@
-# Template Task 🧠
+# Handtracking Prototype 🧠
 
-> A template repository for online tasks created in the Brain Development and Disorders Lab.
+> A prototype task to test in-browser handtracking using standard webcam hardware.
 
 ## Getting Started 🚦
 
 Before developing or previewing the task, ensure that the Node.js version 14+ is installed on your system. Download Node.js [here](https://nodejs.org/en/) and install Yarn using this command `npm i -g yarn`. After installing Yarn, run `yarn install` in the root directory of this repository. After a short period of time, all dependencies for the tasks will be configured and ready for development.
 
-For an extensive usage guide, see the [wiki](https://github.com/Brain-Development-and-Disorders-Lab/template_task_static/wiki) for this repository (under construction).
+For an extensive usage guide, see the [wiki](https://github.com/Brain-Development-and-Disorders-Lab/task_template/wiki) for the template this repository was generated from (under construction).
 
 ## Commands 👨‍💻
 
