@@ -9,6 +9,8 @@
 // Logging library
 import consola from "consola";
 
+import * as handTrack from "handtrackjs";
+
 // Core modules
 import { Configuration } from "src/configuration";
 
@@ -30,8 +32,9 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     parameters: {},
   };
 
-  plugin.trial = (displayElement: HTMLElement, trial: any) => {
-    const Experiment = window.Experiment;
+  plugin.trial = async (displayElement: HTMLElement, trial: any) => {
+    // const Experiment = window.Experiment;
+    consola.debug("displayElement:", displayElement);
 
     // Setup the trial data to be stored
     const trialData = {
@@ -60,7 +63,25 @@ jsPsych.plugins[Configuration.studyName] = (() => {
       jsPsych.finishTrial(trialData);
     };
 
-    // Custom plugin implementation should be placed here
+    // Display progress
+    const status = document.createElement("p");
+    status.textContent = "Analyzing image...";
+    displayElement.appendChild(status);
+
+    // Get the test image
+    const img = document.createElement("img");
+    img.src = "test.jpg";
+    displayElement.appendChild(img);
+
+    // Load the handtracking model
+    const model =  await handTrack.load();
+    const predictions = await model.detect(img);
+
+    status.textContent = predictions.map((prediction: any) => {
+      return `Hand: ${prediction.label}`;
+    }).join(", ");
+
+    finishTrial();
   };
 
   return plugin;
