@@ -156,9 +156,6 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     buttonContainer.style.justifyContent = "center";
     buttonContainer.style.gap = "10px";
 
-    const buttonContainerLabel = document.createElement("p");
-    buttonContainerLabel.textContent = "Controls:";
-
     // Button to show / hide the canvas
     const btnHide = document.createElement("button");
     btnHide.onclick = () => {
