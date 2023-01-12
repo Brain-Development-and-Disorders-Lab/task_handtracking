@@ -11,17 +11,15 @@ import { LogLevel } from "consola";
 // Configuration and other required data
 export const Configuration = {
   // General information
-  name: "Template task",
-  studyName: "template-task",
+  name: "Handtracking prototype",
+  studyName: "handtracking-prototype",
 
   // Error screen configuration
   allowParticipantContact: false,
   contact: "henry.burgess@wustl.edu",
 
   // Manipulations that are configured in Gorilla
-  manipulations: {
-    variableA: 1,
-  },
+  manipulations: {},
 
   // Collection of any stimuli used in the trials
   stimuli: {},
@@ -30,12 +28,10 @@ export const Configuration = {
   resources: {},
 
   // Seed for RNG
-  seed: 0.1234,
+  seed: 0.1129,
 
   // Initial experiment state
-  state: {
-    counter: 0,
-  },
+  state: {},
 
   // Force fullscreen when deployed
   fullscreen: process.env.NODE_ENV !== "development",
