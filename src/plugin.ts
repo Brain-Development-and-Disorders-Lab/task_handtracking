@@ -9,8 +9,9 @@
 // Logging library
 import consola from "consola";
 
-// Handtracking library
+// Handtracking and video capture library
 import * as handTrack from "handtrackjs";
+import RecordRTCPromisesHandler, { invokeSaveAsDialog } from "recordrtc";
 
 // Core modules
 import { Configuration } from "src/configuration";
@@ -80,7 +81,7 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     const model =  await handTrack.load();
 
     // Default status
-    status.textContent = "Hand positioning status: 👎";
+    status.textContent = "Two hands visible: 🚫";
 
     // Create a video element
     const video = document.createElement("video");
@@ -101,10 +102,10 @@ jsPsych.plugins[Configuration.studyName] = (() => {
     const runDetection = async () => {
       model.detect(video).then((predictions: any) => {
         if (validPositioning(predictions)) {
-          status.textContent = "Hand positioning: 👍";
-          canvas.style.border = "green 5px solid";
+          status.textContent = "Two hands visible: ✅";
+          canvas.style.border = "lightgreen 5px solid";
         } else {
-          status.textContent = "Hand positioning: 👎";
+          status.textContent = "Two hands visible: 🚫";
           canvas.style.border = "red 5px solid";
         }
 
@@ -145,11 +146,18 @@ jsPsych.plugins[Configuration.studyName] = (() => {
       finishTrial();
     };
 
+    // Video capture setup
+    const recordingStream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+    const recorder = new RecordRTCPromisesHandler(recordingStream, { type: "video" });
+
     // Create a container for buttons
     const buttonContainer = document.createElement("div");
     buttonContainer.style.display = "flex";
     buttonContainer.style.justifyContent = "center";
     buttonContainer.style.gap = "10px";
+
+    const buttonContainerLabel = document.createElement("p");
+    buttonContainerLabel.textContent = "Controls:";
 
     // Button to show / hide the canvas
     const btnHide = document.createElement("button");
@@ -157,18 +165,45 @@ jsPsych.plugins[Configuration.studyName] = (() => {
       // Toggle the visibility of the canvas element
       if (canvas.style.visibility === "visible") {
         canvas.style.visibility = "hidden";
+        canvas.style.width = "1px";
+        canvas.style.height = "1px";
       } else {
+        canvas.style.width = "640px";
+        canvas.style.height = "480px";
         canvas.style.visibility = "visible";
       }
     };
-    btnHide.innerText = "Show / Hide";
+    btnHide.innerText = "Show / Hide Video";
     buttonContainer.appendChild(btnHide);
 
-    // Button to stop the video and end the experiment
+    // Button to start recording video
+    const btnStart = document.createElement("button");
+    btnStart.innerText = "Start Recording";
+    btnStart.onclick = () => {
+      btnStop.disabled = false;
+      btnStart.disabled = true;
+      recorder.startRecording();
+    };
+    buttonContainer.appendChild(btnStart);
+
+    // Button to stop recording video
     const btnStop = document.createElement("button");
-    btnStop.onclick = onFinish;
-    btnStop.innerText = "Stop";
+    btnStop.innerText = "Stop Recording";
+    btnStop.disabled = true;
+    btnStop.onclick = () => {
+      btnStop.disabled = true;
+      recorder.stopRecording(() => {
+        invokeSaveAsDialog(recorder.getBlob(), "capture.webm");
+        recorder.destroy();
+      });
+    };
     buttonContainer.appendChild(btnStop);
+
+    // Button to end the experiment
+    const btnEnd = document.createElement("button");
+    btnEnd.onclick = onFinish;
+    btnEnd.innerText = "End Experiment";
+    buttonContainer.appendChild(btnEnd);
 
     container.appendChild(buttonContainer);
   };

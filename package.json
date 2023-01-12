@@ -1,9 +1,9 @@
 {
-  "name": "template_task_static",
+  "name": "task_handtracking_prototype",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/Brain-Development-and-Disorders-Lab/template_task_static.git",
+  "repository": "https://github.com/Brain-Development-and-Disorders-Lab/task_handtracking_prototype.git",
   "author": "Henry Burgess <henry.burgess@wustl.edu>",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,8 @@
     "grommet-icons": "^4.7.0",
     "handtrackjs": "^0.1.5",
     "jspsych": "^6.0.0",
-    "neurocog": "^0.3.8"
+    "neurocog": "^0.3.8",
+    "recordrtc": "^5.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -36,6 +37,7 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
+    "@types/recordrtc": "^5.6.10",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "babel-loader": "^9.1.2",
