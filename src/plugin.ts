@@ -63,25 +63,70 @@ jsPsych.plugins[Configuration.studyName] = (() => {
       jsPsych.finishTrial(trialData);
     };
 
-    // Display progress
-    const status = document.createElement("p");
-    status.textContent = "Analyzing image...";
-    displayElement.appendChild(status);
-
-    // Get the test image
-    const img = document.createElement("img");
-    img.src = "test.jpg";
-    displayElement.appendChild(img);
-
     // Load the handtracking model
     const model =  await handTrack.load();
-    const predictions = await model.detect(img);
 
-    status.textContent = predictions.map((prediction: any) => {
-      return `Hand: ${prediction.label}`;
-    }).join(", ");
+    const container = document.createElement("div");
+    container.style.flex = "1";
+    container.style.flexDirection = "column";
+    displayElement.appendChild(container);
 
-    finishTrial();
+    // Create a video element
+    const video = document.createElement("video");
+    video.autoplay = true;
+    
+    // Create a canvas
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    canvas.style.width = "640px";
+    canvas.style.height = "480px";
+    canvas.style.border = "black 5px solid";
+    container.appendChild(canvas);
+
+    /**
+     * Start hand detection
+     */
+    const runDetection = async () => {
+      model.detect(video).then((predictions: any) => {
+        // Small algorithm to detect and generate message if two hands are not shown
+        let handCount = 0;
+        for (const prediction of predictions) {
+          if (prediction.class !== 5) {
+            handCount += 1;
+          }
+        }
+        if (handCount > 1) {
+          canvas.style.border = "green 5px solid";
+        } else {
+          canvas.style.border = "red 5px solid";
+        }
+
+        model.renderPredictions(predictions, canvas, context, video);
+        requestAnimationFrame(runDetection);
+      })
+    };
+
+    // Start the handtracking video
+    handTrack.startVideo(video).then((status: any) => {
+      if (status) {
+        runDetection();
+      }
+    });
+
+    /**
+     * Teardown of handtracking and video
+     */
+    const onFinish = () => {
+      handTrack.stopVideo(video);
+      model.dispose();
+      finishTrial();
+    };
+
+    // Create a stop button
+    const button = document.createElement("button");
+    button.onclick = onFinish;
+    button.innerText = "Stop";
+    container.appendChild(button);
   };
 
   return plugin;
