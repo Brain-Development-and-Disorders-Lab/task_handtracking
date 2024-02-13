@@ -1,14 +1,12 @@
-# Handtracking Prototype 🧠
+# Browser Handtracking
 
 > A prototype task to test in-browser handtracking using standard webcam hardware.
 
-## Getting Started 🚦
+## Getting Started
 
 Before developing or previewing the task, ensure that the Node.js version 14+ is installed on your system. Download Node.js [here](https://nodejs.org/en/) and install Yarn using this command `npm i -g yarn`. After installing Yarn, run `yarn install` in the root directory of this repository. After a short period of time, all dependencies for the tasks will be configured and ready for development.
 
-For an extensive usage guide, see the [wiki](https://github.com/Brain-Development-and-Disorders-Lab/task_template/wiki) for the template this repository was generated from (under construction).
-
-## Commands 👨‍💻
+## Commands
 
 A number of developer commands have been configured for ease of development. The `Yarn` package manager is used in this repository and should be used to run these commands.
 
@@ -18,7 +16,15 @@ A number of developer commands have been configured for ease of development. The
 - `start`: Start the development server and active build process. The task will be able to be previewed in the browser and will reload after each source code change.
 - `test`: Execute all tests specified in the `test/` subdirectory.
 
-## Contribution 👉
+## License
 
-- Issues, bugs, or suggestions? File a new issue under the `Issues` tab.
-- Reach out to [henry.burgess@wustl.edu](mailto:henry.burgess@wustl.edu) if you want to contribute, more than happy to discuss.
+<!-- CC BY-NC-SA 4.0 License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+  <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+</a>
+<br />
+This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+## Issues and Feedback
+
+Please contact **Henry Burgess** <[henry.burgess@wustl.edu](mailto:henry.burgess@wustl.edu)> for all code-related issues and feedback.

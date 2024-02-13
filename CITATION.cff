@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use this task, please cite it as below."
 authors:
 - family-names: "Burgess"
   given-names: "Henry"
   orcid: "https://orcid.org/0000-0002-3481-952X"
-title: "Template Task - Static"
+title: "Handtracking Prototype Task"
 version: 2.0.4
 date-released: 2022-05-04
-url: "https://github.com/Brain-Development-and-Disorders-Lab/template_task_static"
+url: "https://github.com/Brain-Development-and-Disorders-Lab/task_handtracking"

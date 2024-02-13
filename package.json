@@ -1,11 +1,10 @@
 {
-  "name": "task_handtracking_prototype",
+  "name": "task_handtracking",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/Brain-Development-and-Disorders-Lab/task_handtracking_prototype.git",
+  "repository": "https://github.com/Brain-Development-and-Disorders-Lab/task_handtracking.git",
   "author": "Henry Burgess <henry.burgess@wustl.edu>",
-  "license": "MIT",
   "scripts": {
     "clean": "gulp clean",
     "build": "webpack",
